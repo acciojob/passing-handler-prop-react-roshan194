@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Selection = ({ applyColor }) => {
+const Selection = ({ applyColor, refFn }) => {
   const [style, setStyle] = useState({ background: '', key: '' });
 
-  const updateSelectionStyle = (newStyle) => {
-    setStyle(newStyle);
-  };
+  useEffect(() => {
+    if (refFn) {
+      refFn(setStyle);
+    }
+  }, []);
 
   return (
     <div
       className="fix-box"
       style={{ background: style.background }}
-      onClick={() => applyColor(updateSelectionStyle)}
-      data-testid={style.key || ''} // Use the key for data-testid, default to empty string if not set
+      onClick={() => applyColor(setStyle)}
+      data-testid={style.key || ''}
     >
       Selection
     </div>

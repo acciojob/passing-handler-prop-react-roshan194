@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import '../styles/App.css';
 import Selection from './Selection';
 import ColourSelector from './ColourSelector';
@@ -24,11 +24,23 @@ const colourConfig = [{
 const title = 'Select the gradient and then the Box to change the color';
 
 const App = () => {
-  // Store both the background and the key in the state
-  let [nextBackground, selectNextBackground] = useState({ background: "", key: "" });
+  const selectionRefs = useRef([]);
 
   const applyColor = (updateSelectionStyle) => {
     updateSelectionStyle(nextBackground);
+  };
+
+  const [nextBackground, setNextBackground] = useState({ background: "", key: "" });
+
+  const handleColorSelect = (colorObj) => {
+    setNextBackground(colorObj);
+
+    // Update all selection boxes immediately
+    selectionRefs.current.forEach(ref => {
+      if (ref) {
+        ref(colorObj);
+      }
+    });
   };
 
   return (
@@ -36,20 +48,23 @@ const App = () => {
       <h5 className="heading">{title}</h5>
 
       <div className="row">
-        {colourConfig.map((config, index) => (
-          <ColourSelector 
-            key={config.key} 
-            config={config} 
-            // Pass both background and key when a color is selected
-            selectNextBackground={() => selectNextBackground({ background: config.background, key: config.key })} 
+        {colourConfig.map((config) => (
+          <ColourSelector
+            key={config.key}
+            config={config}
+            selectNextBackground={() => handleColorSelect({ background: config.background, key: config.key })}
           />
         ))}
       </div>
 
       <div className='row' id="children-wrapper">
         {
-          ["selection1", "selection2", "selection3"].map(key => (
-            <Selection key={key} applyColor={applyColor} />
+          ["selection1", "selection2", "selection3"].map((key, idx) => (
+            <Selection
+              key={key}
+              applyColor={applyColor}
+              refFn={(fn) => (selectionRefs.current[idx] = fn)}
+            />
           ))
         }
       </div>
