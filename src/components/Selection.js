@@ -12,6 +12,7 @@ const Selection = ({ applyColor }) => {
       className="fix-box"
       onClick={handleClick}
       style={{ background: bgColor }}
+      data-testid={getColorTestId(bgColor)} 
     >
       <h2 className="subheading">Selection</h2>
     </div>
