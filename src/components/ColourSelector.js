@@ -6,10 +6,10 @@ const ColourSelector = (props) => {
 
   return (
     <button
-      className={classname} // ✅ classname from config
-      onClick={() => selectNextBackground(background)} // ✅ send only the color string
+      className={classname}
+      onClick={() => selectNextBackground(background)}
     >
-      {label} {/* ✅ show the label */}
+      {label}
     </button>
   );
 };
