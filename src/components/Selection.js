@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 
-const Selection = ({ applyColor }) => {
+const Selection = ({ applyColor, "data-testid": dataTestId }) => {
   const [bgColor, setBgColor] = useState("");
-  const [testId, setTestId] = useState("");
+  const [testId, setTestId] = useState("unselected");
 
   const updateSelectionStyle = (config) => {
-    setBgColor(config.background);
-    setTestId(config.key);
+    if (config && config.background && config.key) {
+      setBgColor(config.background);
+      setTestId(config.key);
+    }
   };
 
   return (
@@ -14,7 +16,7 @@ const Selection = ({ applyColor }) => {
       className="fix-box"
       onClick={() => applyColor(updateSelectionStyle)}
       style={{ backgroundColor: bgColor }}
-      data-testid={testId}
+      data-testid={testId || dataTestId || "selection-box"} // Fallback to prop or default
     >
       Selection
     </div>
