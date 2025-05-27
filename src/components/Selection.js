@@ -1,22 +1,17 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const Selection = ({ applyColor, "data-testid": dataTestId }) => {
-  const [bgColor, setBgColor] = useState("");
-  const [testId, setTestId] = useState("unselected");
+const Selection = ({ applyColor }) => {
+  const [style, setStyle] = useState({ background: '' });
 
-  const updateSelectionStyle = (config) => {
-    if (config && config.background && config.key) {
-      setBgColor(config.background);
-      setTestId(config.key);
-    }
+  const updateSelectionStyle = (newStyle) => {
+    setStyle(newStyle);
   };
 
   return (
     <div
       className="fix-box"
+      style={style}
       onClick={() => applyColor(updateSelectionStyle)}
-      style={{ backgroundColor: bgColor }}
-      data-testid={testId || dataTestId || "selection-box"} // Fallback to prop or default
     >
       Selection
     </div>
