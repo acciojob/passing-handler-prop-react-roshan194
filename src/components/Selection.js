@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-const Selection = ({ applyColor, refFn }) => {
-  const [style, setStyle] = useState({ background: '', key: '' });
+function Selection({ selectedColor }) {
+  const [bgColor, setBgColor] = useState('');
 
-  useEffect(() => {
-    if (refFn) {
-      refFn(setStyle);
-    }
-  }, []);
+  const handleClick = () => {
+    setBgColor(selectedColor);
+  };
 
   return (
     <div
       className="fix-box"
-      style={{ background: style.background }}
-      onClick={() => applyColor(setStyle)}
-      data-testid={style.key || ''}
-    >
-      Selection
-    </div>
+      onClick={handleClick}
+      style={{
+        width: '100px',
+        height: '100px',
+        backgroundColor: bgColor,
+        border: '1px solid black',
+        cursor: 'pointer',
+      }}
+    />
   );
-};
+}
 
 export default Selection;
