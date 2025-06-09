@@ -8,7 +8,7 @@ const ColourSelector = ({ config, selectNextBackground }) => {
   return (
     <button
       className={config.classname}
-      data-testid={config.key} // Required for Cypress test
+      data-testid={config.key} 
       onClick={handleClick}
     >
       {config.label}
