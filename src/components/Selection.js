@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Selection = ({ applyColor }) => {
-  const [bgStyle, setBgStyle] = useState({ background: "rgb(239, 239, 239)" });
+  const [bgStyle, setBgStyle] = useState({ backgroundColor: "rgb(239, 239, 239)" });
 
   return (
     <div

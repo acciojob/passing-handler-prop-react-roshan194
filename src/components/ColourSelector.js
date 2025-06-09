@@ -2,7 +2,7 @@ import React from "react";
 
 const ColourSelector = ({ config, selectNextBackground }) => {
   const handleClick = () => {
-    selectNextBackground({ background: config.background });
+    selectNextBackground({ backgroundColor: config.background });
   };
 
   return (
